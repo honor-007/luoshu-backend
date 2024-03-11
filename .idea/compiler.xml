@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="CompilerConfiguration">
+    <annotationProcessing>
+      <profile name="Maven default annotation processors profile" enabled="true">
+        <sourceOutputDir name="target/generated-sources/annotations" />
+        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
+        <outputRelativeToContentRoot value="true" />
+        <module name="user-api" />
+        <module name="common" />
+        <module name="auth" />
+        <module name="demo" />
+        <module name="demo-api" />
+        <module name="user" />
+        <module name="gateway" />
+      </profile>
+    </annotationProcessing>
+  </component>
+  <component name="JavacSettings">
+    <option name="ADDITIONAL_OPTIONS_OVERRIDE">
+      <module name="auth" options="-parameters" />
+      <module name="common" options="-parameters" />
+      <module name="demo" options="-parameters" />
+      <module name="demo-api" options="-parameters" />
+      <module name="gateway" options="-parameters" />
+      <module name="service" options="-parameters" />
+      <module name="service-api" options="-parameters" />
+      <module name="springcloud-base" options="-parameters" />
+      <module name="user" options="-parameters" />
+      <module name="user-api" options="-parameters" />
+    </option>
+  </component>
+</project>
