@@ -6,10 +6,11 @@ import com.example.core.tool.utils.Func;
 import com.example.core.tool.utils.RedisUtils;
 import com.example.modules.user.controller.vo.UserVO;
 import com.example.modules.user.dao.entity.User;
+import com.example.modules.user.service.bo.UserInfo;
 import com.example.modules.user.service.impl.UserService;
 import com.example.modules.user.support.UserConvertMapper;
-import com.github.xiaoymin.knife4j.annotations.ApiOperationSupport;
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -22,6 +23,7 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @AllArgsConstructor
 @RequestMapping("user")
+@Tag(name = "user")
 public class UserController {
     private final UserService userService;
     private final RedisUtils redisUtils;
@@ -29,7 +31,6 @@ public class UserController {
     /**
      * 查询单条
      */
-    @ApiOperationSupport(order = 1)
     @Operation(summary = "查看详情")
     @GetMapping("/detail")
     public R<UserVO> detail(User user) {
@@ -41,7 +42,7 @@ public class UserController {
     /**
      * 查询挡墙用户信息
      */
-    @ApiOperationSupport(order = 2)
+    @Operation(summary = "获取当前登录的用户信息")
     @GetMapping("/info")
     public R<UserVO> info() {
         SecureUtil.User secureUser = SecureUtil.getUser();
@@ -50,28 +51,29 @@ public class UserController {
         return R.data(UserConvertMapper.INSTANT.from(detail));
     }
 
+//    @Operation(summary = "账号密码登录")
+//    @GetMapping("/signByPassword")
+//    public R<UserVO> signByPassword() {
+//        UserInfo userInfo = userService.signByPassword("rongyu", "123456", "000000");
+//        return R.success("rongyu");
+//    }
+
 //    /**
 //     * 用户列表
 //     */
 //    @GetMapping("/list")
-//    @ApiImplicitParams({
-//            @ApiImplicitParam(name = "account", value = "账号名", paramType = "query", dataType = "string"),
-//            @ApiImplicitParam(name = "realName", value = "姓名", paramType = "query", dataType = "string")
-//    })
 //    @ApiOperationSupport(order = 3)
-//    @ApiOperation(value = "列表", notes = "传入account和realName")
-//    public R<IPage<UserVO>> list(@ApiIgnore @RequestParam Map<String, Object> user, Query query, BladeUser bladeUser) {
+//    public R<IPage<UserVO>> list(@RequestParam Map<String, Object> user) {
 //        QueryWrapper<User> queryWrapper = Condition.getQueryWrapper(user, User.class);
 //        IPage<User> pages = userService.page(Condition.getPage(query), (!bladeUser.getTenantId().equals(BladeConstant.ADMIN_TENANT_ID)) ? queryWrapper.lambda().eq(User::getTenantId, bladeUser.getTenantId()) : queryWrapper);
 //        return R.data(UserWrapper.build().pageVO(pages));
 //    }
-//
+
 
     /**
      * 新增或修改
      */
     @PostMapping("/submit")
-    @ApiOperationSupport(order = 4)
     public R saveOrUpdate(@Valid @RequestBody User user) {
         return R.status(userService.saveOrUpdate(user));
     }
@@ -80,7 +82,6 @@ public class UserController {
      * 修改
      */
     @PostMapping("/update")
-    @ApiOperationSupport(order = 5)
     public R update(@Valid @RequestBody User user) {
         return R.status(userService.updateById(user));
     }
@@ -89,7 +90,6 @@ public class UserController {
      * 删除
      */
     @PostMapping("/remove")
-    @ApiOperationSupport(order = 6)
     public R remove(@RequestParam String ids) {
         return R.status(userService.deleteBatchByIds(Func.toLongList(ids)));
     }

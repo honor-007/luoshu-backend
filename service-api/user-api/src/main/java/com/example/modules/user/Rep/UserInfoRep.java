@@ -1,6 +1,5 @@
 package com.example.modules.user.Rep;
 
-import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.*;
 
 import java.io.Serializable;
@@ -21,25 +20,21 @@ public class UserInfoRep implements Serializable {
     /**
      * 用户基础信息
      */
-    @Schema(name = "用户")
     private UserRep user;
 
     /**
      * 权限标识集合
      */
-    @Schema(name = "权限集合")
     private List<String> permissions;
 
     /**
      * 角色集合
      */
-    @Schema(name = "角色集合")
     private List<String> roles;
 
     /**
      * 第三方授权id
      */
-    @Schema(name = "第三方授权id")
     private String oauthId;
 
     @EqualsAndHashCode
