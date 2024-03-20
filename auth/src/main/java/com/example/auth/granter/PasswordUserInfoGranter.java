@@ -1,6 +1,5 @@
 package com.example.auth.granter;
 
-import cn.dev33.satoken.stp.StpUtil;
 import com.example.auth.entity.UserInfo;
 import com.example.auth.entity.UserParameter;
 import com.example.auth.support.AuthConvertMapper;

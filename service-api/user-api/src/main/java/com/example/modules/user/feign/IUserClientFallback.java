@@ -10,14 +10,14 @@ import org.springframework.stereotype.Component;
  * @author honor
  */
 @Component
-public class IUserClientFallback implements IUserClient {
+public class IUserClientFallback {
 
-    @Override
+//    @Override
     public R<UserInfoRep> userInfo(Long userId) {
         return R.fail("未获取到账号信息");
     }
 
-    @Override
+//    @Override
     public R<UserInfoRep> signByPassword(String account, String pwd,String tennatId) {
         return R.fail("未获取到账号信息");
     }
