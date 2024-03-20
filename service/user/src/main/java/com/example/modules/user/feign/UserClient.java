@@ -20,8 +20,10 @@ import com.example.modules.user.service.bo.UserInfo;
 import com.example.modules.user.service.impl.UserService;
 import com.example.modules.user.Rep.UserInfoRep;
 import com.example.modules.user.support.UserConvertMapper;
+import lombok.AllArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import org.apache.commons.lang3.ObjectUtils;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
@@ -30,18 +32,20 @@ import org.springframework.web.bind.annotation.RestController;
  * @author Chill
  */
 @RestController
-@RequiredArgsConstructor
+@AllArgsConstructor
 public class UserClient implements IUserClient {
 
     private final UserService service;
 
     @Override
+    @GetMapping(API_PREFIX + "/user-info-by-id")
     public R<UserInfoRep> userInfo(Long userId) {
         UserInfo userInfo = service.userInfo(userId);
         return R.data(UserConvertMapper.INSTANT.from(userInfo));
     }
 
     @Override
+    @GetMapping(API_PREFIX + "/sign-by-password")
     public R<UserInfoRep> signByPassword(String account, String pwd,String tennatId) {
         UserInfo userInfo = service.signByPassword(account,pwd,tennatId);
         if (ObjectUtils.isEmpty(userInfo)) {

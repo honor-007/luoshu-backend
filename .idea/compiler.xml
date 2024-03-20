@@ -8,13 +8,27 @@
         <outputRelativeToContentRoot value="true" />
         <module name="user-api" />
         <module name="common" />
-        <module name="auth" />
-        <module name="demo" />
         <module name="demo-api" />
-        <module name="user" />
         <module name="gateway" />
       </profile>
+      <profile name="Annotation profile for springcloud-base" enabled="true">
+        <sourceOutputDir name="target/generated-sources/annotations" />
+        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
+        <outputRelativeToContentRoot value="true" />
+        <processorPath useClasspath="false">
+          <entry name="$MAVEN_REPOSITORY$/org/projectlombok/lombok/1.18.26/lombok-1.18.26.jar" />
+          <entry name="$MAVEN_REPOSITORY$/org/mapstruct/mapstruct-processor/1.5.5.Final/mapstruct-processor-1.5.5.Final.jar" />
+          <entry name="$MAVEN_REPOSITORY$/org/mapstruct/mapstruct/1.5.5.Final/mapstruct-1.5.5.Final.jar" />
+        </processorPath>
+        <module name="auth" />
+        <module name="demo" />
+        <module name="user" />
+      </profile>
     </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="user-service" target="17" />
+      <module name="user-service-api" target="17" />
+    </bytecodeTargetLevel>
   </component>
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
@@ -28,6 +42,8 @@
       <module name="springcloud-base" options="-parameters" />
       <module name="user" options="-parameters" />
       <module name="user-api" options="-parameters" />
+      <module name="user-service" options="-parameters" />
+      <module name="user-service-api" options="-parameters" />
     </option>
   </component>
 </project>

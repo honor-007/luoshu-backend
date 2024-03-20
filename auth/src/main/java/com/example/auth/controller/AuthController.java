@@ -8,12 +8,10 @@ import com.example.auth.entity.UserParameter;
 import com.example.auth.granter.IUserInfoGranter;
 import com.example.auth.granter.TokenGranter;
 import com.example.auth.granter.UserInfoGranterBuilder;
-import com.example.core.tool.api.R;
 import com.example.common.enums.GrantType;
-//import io.swagger.annotations.ApiParam;
+import com.example.core.tool.api.R;
 import com.example.core.tool.exception.MSException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.util.JSONPObject;
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -31,10 +29,6 @@ import org.springframework.web.bind.annotation.RestController;
 public class AuthController {
 
     @PostMapping("token")
-//    public R<AuthInfo> doLogin(@ApiParam(value = "授权类型", required = true) @RequestParam(defaultValue = "PASSWORD", required = false) GrantType grantType,
-//                               @ApiParam(value = "租户ID", required = true) @RequestParam(defaultValue = "000000", required = false) String tenantId,
-//                               @ApiParam(value = "账号") @RequestParam(required = false) String account,
-//                               @ApiParam(value = "密码") @RequestParam(required = false) String password) {
     public R<AuthInfo> doLogin(@RequestParam(defaultValue = "PASSWORD", required = false) GrantType grantType,
                                @RequestParam(defaultValue = "000000", required = false) String tenantId,
                                @RequestParam(required = false) String account,
@@ -65,7 +59,6 @@ public class AuthController {
         } catch (Exception e) {
             throw new MSException(e.getMessage());
         }
-
 
         return R.data(TokenGranter.createAuthInfo(userInfo));
     }

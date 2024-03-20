@@ -10,8 +10,8 @@ import org.springframework.web.bind.annotation.RequestParam;
  * @author honor
  */
 @FeignClient(
-        value = "user-service",
-        fallback = IUserClientFallback.class
+        value = "user-service"
+//        , url = "http://localhost:8082"
 )
 public interface IUserClient {
 
@@ -34,6 +34,6 @@ public interface IUserClient {
      * @param tennatId
      * @return
      */
-    @GetMapping(API_PREFIX + "/user-info-by-entity")
-    R<UserInfoRep> signByPassword(String account, String pwd, String tennatId);
+    @GetMapping(API_PREFIX + "/sign-by-password")
+    R<UserInfoRep> signByPassword(@RequestParam("account") String account, @RequestParam("pwd") String pwd, @RequestParam("tennatId") String tennatId);
 }
