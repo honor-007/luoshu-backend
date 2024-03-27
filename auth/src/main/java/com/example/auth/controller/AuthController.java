@@ -24,7 +24,7 @@ import org.springframework.web.bind.annotation.RestController;
  */
 @RestController
 @AllArgsConstructor
-@RequestMapping("/auth/")
+@RequestMapping("/api/auth/")
 //@Api(value = "用户授权认证", tags = "授权接口")
 public class AuthController {
 

@@ -8,7 +8,7 @@ import java.util.List;
 
 /**
  * @author honor
- *
+ * <p>
  * 自定义权限加载接口实现类
  */
 @Component  // 保证此类被 SpringBoot 扫描，完成 Sa-Token 的自定义权限验证扩展
@@ -22,9 +22,11 @@ public class StpInterfaceImpl implements StpInterface {
         // 本 list 仅做模拟，实际项目中要根据具体业务逻辑来查询权限
         List<String> list = new ArrayList<String>();
         list.add("101");
+        list.add("user");
         list.add("user.add");
         list.add("user.update");
         list.add("user.get");
+        list.add("demo");
         // list.add("user.delete");
         list.add("art.*");
         return list;

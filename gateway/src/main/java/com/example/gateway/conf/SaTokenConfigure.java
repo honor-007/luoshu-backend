@@ -25,13 +25,15 @@ public class SaTokenConfigure {
                 // 鉴权方法：每次访问进入
                 .setAuth(obj -> {
                     // 登录校验 -- 拦截所有路由，并排除/auth/token 用于开放登录
-                    SaRouter.match("/**", "/auth/token", r -> StpUtil.checkLogin());
+                    SaRouter.match("/**", "/api/auth/token", r -> StpUtil.checkLogin());
+//                    SaRouter.match("/**", "/test", r -> StpUtil.checkLogin());
 
                     // 权限认证 -- 不同模块, 校验不同权限
-                    SaRouter.match("/user/**", r -> StpUtil.checkPermission("user"));
-                    SaRouter.match("/admin/**", r -> StpUtil.checkPermission("admin"));
-                    SaRouter.match("/goods/**", r -> StpUtil.checkPermission("goods"));
-                    SaRouter.match("/orders/**", r -> StpUtil.checkPermission("orders"));
+                    SaRouter.match("/api/user/**", r -> StpUtil.checkPermission("user"));
+                    SaRouter.match("/api/demo/**", r -> StpUtil.checkPermission("demo"));
+                    SaRouter.match("/api/admin/**", r -> StpUtil.checkPermission("admin"));
+                    SaRouter.match("/api/goods/**", r -> StpUtil.checkPermission("goods"));
+                    SaRouter.match("/api/orders/**", r -> StpUtil.checkPermission("orders"));
 
                     // 更多匹配 ...  */
                 })

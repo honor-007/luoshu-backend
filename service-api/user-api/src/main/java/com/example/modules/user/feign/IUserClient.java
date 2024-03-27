@@ -10,8 +10,8 @@ import org.springframework.web.bind.annotation.RequestParam;
  * @author honor
  */
 @FeignClient(
-        value = "user-service"
-//        , url = "http://localhost:8082"
+        value = "user-service",
+        fallback = IUserClientFallback.class
 )
 public interface IUserClient {
 

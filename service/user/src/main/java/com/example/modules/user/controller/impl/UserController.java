@@ -22,8 +22,8 @@ import org.springframework.web.bind.annotation.*;
 @Slf4j
 @RestController
 @AllArgsConstructor
-@RequestMapping("user")
-@Tag(name = "user")
+@RequestMapping("/api/user")
+@Tag(name = "/api/user")
 public class UserController {
     private final UserService userService;
     private final RedisUtils redisUtils;

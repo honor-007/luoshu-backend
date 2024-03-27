@@ -10,17 +10,22 @@ spring:
         locator:
           enabled: true # 可以从nacos 中发现微服务z
       routes:
-        #访问http://localhost:8080/guonei就可以转发到http://news.baidu.com/guonei
+        #访问http://localhost:80/test/news 就可以转发到http://news.baidu.com/guonei
         - id: payment_routes2
           uri: http://news.baidu.com/
           predicates:
-            - Path=/guonei/**
+            - Path=/api/test/**
 
         - id: auth
 #          uri: http://localhost:8100
           uri: lb://auth-service # lb 表示 从nacos 中按照名称获取微服务，并遵循负载均衡策略, auth-service 即微服务注册名
           predicates:
-            - Path=/auth/**
+            - Path=/api/auth/**
+
+        - id: demo
+          uri: lb://demo-service
+          predicates:
+            - Path=/api/demo/**
     loadbalancer:
       nacos:
         enabled: true
