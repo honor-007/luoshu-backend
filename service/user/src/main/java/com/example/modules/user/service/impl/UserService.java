@@ -1,6 +1,7 @@
 package com.example.modules.user.service.impl;
 
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
+import com.example.core.secure.entity.AuthInfo;
 import com.example.core.tool.exception.MSException;
 import com.example.core.tool.utils.Func;
 import com.example.modules.user.dao.entity.Role;
@@ -29,7 +30,7 @@ public class UserService {
     private final UserManager userManager;
     private final RoleManager roleManager;
 
-    public User getById(Long id) {
+    public User getById(String id) {
         return userManager.selectById(id);
     }
 
@@ -37,7 +38,23 @@ public class UserService {
         return userManager.getOne(user);
     }
 
-    public UserInfo userInfo(Long userId) {
+    public AuthInfo getCurrentUser(String id){
+        User user = userManager.selectById(id);
+        List<String> roleIds = user.getRoleId();
+        List<Role> roles = roleManager.queryBatchIds(roleIds);
+        List<String> roleAlias = roles.stream().map(Role::getRoleAlias).collect(Collectors.toList());
+
+        AuthInfo authInfo = new AuthInfo();
+        authInfo.setUserId(user.getId());
+        authInfo.setTenantId(user.getTenantId());
+        authInfo.setAccount(user.getAccount());
+        authInfo.setUserName(user.getRealName());
+        authInfo.setAuthority(roleAlias.toString().substring(1, roleAlias.toString().length() - 1));
+        authInfo.setTokenType("satoken");
+        return authInfo;
+    }
+    
+    public UserInfo userInfo(String userId) {
         UserInfo userInfo = new UserInfo();
         User user = userManager.selectById(userId);
         if (ObjectUtils.isEmpty(user)) {
@@ -45,10 +62,10 @@ public class UserService {
         }
         userInfo.setUser(user);
         if (ObjectUtils.isNotEmpty(user)) {
-            List<Long> roleIds = Arrays.asList(Func.toLongArray(user.getRoleId()));
+            List<String> roleIds = user.getRoleId();
             List<Role> roles = roleManager.queryBatchIds(roleIds);
             List<String> roleAlias = roles.stream().map(Role::getRoleAlias).collect(Collectors.toList());
-            userInfo.setRoles(roleAlias);
+            userInfo.setRoleAlias(roleAlias);
         }
         return userInfo;
     }
@@ -69,10 +86,10 @@ public class UserService {
         }
         userInfo.setUser(user);
         if (ObjectUtils.isNotEmpty(user)) {
-            List<Long> roleIds = Arrays.asList(Func.toLongArray(user.getRoleId()));
+            List<String> roleIds = user.getRoleId();
             List<Role> roles = roleManager.queryBatchIds(roleIds);
             List<String> roleAlias = roles.stream().map(Role::getRoleAlias).collect(Collectors.toList());
-            userInfo.setRoles(roleAlias);
+            userInfo.setRoleAlias(roleAlias);
         }
         return userInfo;
     }

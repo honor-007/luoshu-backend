@@ -1,8 +1,10 @@
 package com.example.core.tool.context;
 
+import com.example.core.tool.utils.RedisUtils;
 import org.springframework.beans.BeansException;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Component;
 
 /**
@@ -16,11 +18,16 @@ public class ApplicationContextHolder implements ApplicationContextAware {
 
     @Override
     public void setApplicationContext(ApplicationContext applicationContext) throws BeansException {
-        ApplicationContextHolder.context = applicationContext;
+        if (ApplicationContextHolder.context == null) {
+            ApplicationContextHolder.context = applicationContext;
+        }
     }
 
     public static ApplicationContext getContext() {
         return context;
     }
 
+    public static RedisUtils getRedisUtils() {
+        return getContext().getBean(RedisUtils.class);
+    }
 }

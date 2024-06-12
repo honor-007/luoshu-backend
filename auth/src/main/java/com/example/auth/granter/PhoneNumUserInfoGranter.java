@@ -1,7 +1,7 @@
 package com.example.auth.granter;
 
-import com.example.auth.entity.UserInfo;
-import com.example.auth.entity.UserParameter;
+import com.example.core.secure.entity.UserInfo;
+import com.example.core.secure.entity.UserParameter;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Component;
 import org.springframework.util.LinkedCaseInsensitiveMap;

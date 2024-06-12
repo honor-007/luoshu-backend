@@ -1,15 +1,18 @@
 package com.example.modules.user.controller.impl;
 
+import com.example.core.secure.entity.AuthInfo;
+import com.example.core.secure.entity.SecureUser;
 import com.example.core.secure.utils.SecureUtil;
 import com.example.core.tool.api.R;
 import com.example.core.tool.utils.Func;
 import com.example.core.tool.utils.RedisUtils;
 import com.example.modules.user.controller.vo.UserVO;
 import com.example.modules.user.dao.entity.User;
-import com.example.modules.user.service.bo.UserInfo;
 import com.example.modules.user.service.impl.UserService;
 import com.example.modules.user.support.UserConvertMapper;
+import io.swagger.v3.oas.annotations.OpenAPIDefinition;
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.info.Info;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
@@ -23,7 +26,8 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @AllArgsConstructor
 @RequestMapping("/api/user")
-@Tag(name = "/api/user")
+@OpenAPIDefinition(info = @Info(title = "用户模块", description = "对用户进行操作", version = "1.0.0"))
+@Tag(name = "user")
 public class UserController {
     private final UserService userService;
     private final RedisUtils redisUtils;
@@ -43,12 +47,11 @@ public class UserController {
      * 查询挡墙用户信息
      */
     @Operation(summary = "获取当前登录的用户信息")
-    @GetMapping("/info")
-    public R<UserVO> info() {
-        SecureUtil.User secureUser = SecureUtil.getUser();
-        User user = UserConvertMapper.INSTANT.from(secureUser);
-        User detail = userService.getById(user.getId());
-        return R.data(UserConvertMapper.INSTANT.from(detail));
+    @GetMapping("/currentUser")
+    public R<AuthInfo> info() {
+        SecureUser secureUser = SecureUtil.getUser();
+        AuthInfo authInfo = userService.getCurrentUser(secureUser.getId());
+        return R.data(authInfo);
     }
 
 //    @Operation(summary = "账号密码登录")
@@ -130,24 +133,24 @@ public class UserController {
 //    @PostMapping("/update-password")
 //    @ApiOperationSupport(order = 9)
 //    @ApiOperation(value = "修改密码", notes = "传入密码")
-//    public R updatePassword(BladeUser user, @ApiParam(value = "旧密码", required = true) @RequestParam String oldPassword,
+//    public R updatePassword(BladeUser secureUser, @ApiParam(value = "旧密码", required = true) @RequestParam String oldPassword,
 //                            @ApiParam(value = "新密码", required = true) @RequestParam String newPassword,
 //                            @ApiParam(value = "新密码", required = true) @RequestParam String newPassword1) {
-//        boolean temp = userService.updatePassword(user.getUserId(), oldPassword, newPassword, newPassword1);
+//        boolean temp = userService.updatePassword(secureUser.getUserId(), oldPassword, newPassword, newPassword1);
 //        return R.status(temp);
 //    }
 //
 //    /**
 //     * 用户列表
 //     *
-//     * @param user
+//     * @param secureUser
 //     * @return
 //     */
-//    @GetMapping("/user-list")
+//    @GetMapping("/secureUser-list")
 //    @ApiOperationSupport(order = 10)
 //    @ApiOperation(value = "用户列表", notes = "传入user")
-//    public R<List<User>> userList(User user) {
-//        List<User> list = userService.list(Condition.getQueryWrapper(user));
+//    public R<List<SecureUser>> userList(SecureUser secureUser) {
+//        List<SecureUser> list = userService.list(Condition.getQueryWrapper(secureUser));
 //        return R.data(list);
 //    }
 //
@@ -155,7 +158,7 @@ public class UserController {
 //    /**
 //     * 导入用户
 //     */
-//    @PostMapping("import-user")
+//    @PostMapping("import-secureUser")
 //    @ApiOperationSupport(order = 12)
 //    @ApiOperation(value = "导入用户", notes = "传入excel")
 //    public R importUser(MultipartFile file, Integer isCovered) {
@@ -182,15 +185,15 @@ public class UserController {
 //     * 导出用户
 //     */
 //    @SneakyThrows
-//    @GetMapping("export-user")
+//    @GetMapping("export-secureUser")
 //    @ApiOperationSupport(order = 13)
 //    @ApiOperation(value = "导出用户", notes = "传入user")
-//    public void exportUser(@ApiIgnore @RequestParam Map<String, Object> user, BladeUser bladeUser, HttpServletResponse response) {
-//        QueryWrapper<User> queryWrapper = Condition.getQueryWrapper(user, User.class);
+//    public void exportUser(@ApiIgnore @RequestParam Map<String, Object> secureUser, BladeUser bladeUser, HttpServletResponse response) {
+//        QueryWrapper<SecureUser> queryWrapper = Condition.getQueryWrapper(secureUser, SecureUser.class);
 //        if (!SecureUtil.isAdministrator()){
-//            queryWrapper.lambda().eq(User::getTenantId, bladeUser.getTenantId());
+//            queryWrapper.lambda().eq(SecureUser::getTenantId, bladeUser.getTenantId());
 //        }
-//        queryWrapper.lambda().eq(User::getIsDeleted, BladeConstant.DB_NOT_DELETED);
+//        queryWrapper.lambda().eq(SecureUser::getIsDeleted, BladeConstant.DB_NOT_DELETED);
 //        List<UserExcel> list = userService.exportUser(queryWrapper);
 //        response.setContentType("application/vnd.ms-excel");
 //        response.setCharacterEncoding(Charsets.UTF_8.name());
@@ -221,8 +224,8 @@ public class UserController {
 //    @PostMapping("/register-guest")
 //    @ApiOperationSupport(order = 15)
 //    @ApiOperation(value = "第三方注册用户", notes = "传入user")
-//    public R registerGuest(User user, Long oauthId) {
-//        return R.status(userService.registerGuest(user, oauthId));
+//    public R registerGuest(SecureUser secureUser, Long oauthId) {
+//        return R.status(userService.registerGuest(secureUser, oauthId));
 //    }
 
 

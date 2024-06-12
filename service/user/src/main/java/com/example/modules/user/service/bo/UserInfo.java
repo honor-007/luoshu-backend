@@ -37,7 +37,7 @@ public class UserInfo implements Serializable {
      * 角色集合
      */
     @Schema(name = "角色集合")
-    private List<String> roles;
+    private List<String> roleAlias;
 
     /**
      * 第三方授权id

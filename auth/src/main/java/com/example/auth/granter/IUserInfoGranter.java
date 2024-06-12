@@ -1,8 +1,8 @@
 package com.example.auth.granter;
 
-import com.example.auth.entity.UserInfo;
-import com.example.auth.entity.UserParameter;
-import org.springframework.util.LinkedCaseInsensitiveMap;
+
+import com.example.core.secure.entity.UserInfo;
+import com.example.core.secure.entity.UserParameter;
 
 /**
  * @author honor

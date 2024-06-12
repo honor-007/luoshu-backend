@@ -3,9 +3,9 @@ package com.example.auth.granter;
 
 import cn.dev33.satoken.stp.SaTokenInfo;
 import cn.dev33.satoken.stp.StpUtil;
-import com.example.auth.entity.AuthInfo;
-import com.example.auth.entity.User;
-import com.example.auth.entity.UserInfo;
+import com.example.core.secure.entity.AuthInfo;
+import com.example.core.secure.entity.SecureUser;
+import com.example.core.secure.entity.UserInfo;
 import com.example.core.tool.utils.Func;
 
 /**
@@ -20,20 +20,19 @@ public class TokenGranter {
      * @return token
      */
     public static AuthInfo createAuthInfo(UserInfo userInfo) {
-        User user = userInfo.getUser();
+        SecureUser secureUser = userInfo.getSecureUser();
 
 
-        StpUtil.login(user.getId());
+        StpUtil.login(secureUser.getId());
         SaTokenInfo tokenInfo = StpUtil.getTokenInfo();
 
-
         AuthInfo authInfo = new AuthInfo();
-        authInfo.setUserId(user.getId());
-        authInfo.setTenantId(Func.toStr(user.getTenantId()));
+        authInfo.setUserId(secureUser.getId());
+        authInfo.setTenantId(secureUser.getTenantId());
         authInfo.setOauthId(userInfo.getOauthId());
-        authInfo.setAccount(user.getAccount());
-        authInfo.setUserName(user.getRealName());
-        authInfo.setAuthority(userInfo.getRoles().toString().substring(1, userInfo.getRoles().toString().length() - 1));
+        authInfo.setAccount(secureUser.getAccount());
+        authInfo.setUserName(secureUser.getRealName());
+        authInfo.setAuthority(userInfo.getRoleAlias().toString().substring(1, userInfo.getRoleAlias().toString().length() - 1));
         authInfo.setAccessToken(tokenInfo.getTokenValue());
 //        authInfo.setExpiresIn(accessToken.getExpire());
 //        authInfo.setRefreshToken(createRefreshToken(userInfo).getToken());

@@ -13,7 +13,7 @@ import java.util.List;
 @Repository
 public class RoleDAO extends ServiceImpl<RoleMapper, Role> {
 
-    public List<Role> selectBatchIds(List<Long> ids) {
+    public List<Role> selectBatchIds(List<String> ids) {
         return baseMapper.selectBatchIds(ids);
     }
 

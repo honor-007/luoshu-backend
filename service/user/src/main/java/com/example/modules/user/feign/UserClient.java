@@ -16,15 +16,18 @@
 package com.example.modules.user.feign;
 
 import com.example.core.tool.api.R;
+import com.example.modules.user.Rep.UserInfoRep;
 import com.example.modules.user.service.bo.UserInfo;
 import com.example.modules.user.service.impl.UserService;
-import com.example.modules.user.Rep.UserInfoRep;
 import com.example.modules.user.support.UserConvertMapper;
+import com.google.common.collect.Lists;
 import lombok.AllArgsConstructor;
-import lombok.RequiredArgsConstructor;
 import org.apache.commons.lang3.ObjectUtils;
+import org.checkerframework.checker.nullness.qual.Nullable;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import java.util.ArrayList;
 
 /**
  * 用户服务Feign实现类
@@ -39,7 +42,7 @@ public class UserClient implements IUserClient {
 
     @Override
     @GetMapping(API_PREFIX + "/user-info-by-id")
-    public R<UserInfoRep> userInfo(Long userId) {
+    public R<UserInfoRep> userInfo(String userId) {
         UserInfo userInfo = service.userInfo(userId);
         return R.data(UserConvertMapper.INSTANT.from(userInfo));
     }

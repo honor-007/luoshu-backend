@@ -20,7 +20,7 @@ import java.util.List;
 public class UserManager {
     private final UserDAO userDAO;
 
-    public User selectById(Long id) {
+    public User selectById(String id) {
         return userDAO.getById(id);
     }
 

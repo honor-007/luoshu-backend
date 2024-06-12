@@ -16,8 +16,10 @@
 package com.example.modules.user.dao.entity;
 
 import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
+import com.baomidou.mybatisplus.extension.handlers.JacksonTypeHandler;
 import com.example.core.mybatis.base.TenantEntity;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.fasterxml.jackson.databind.ser.std.ToStringSerializer;
@@ -28,6 +30,7 @@ import lombok.NoArgsConstructor;
 import lombok.experimental.SuperBuilder;
 
 import java.time.Instant;
+import java.util.List;
 
 /**
  * 实体类
@@ -36,7 +39,7 @@ import java.time.Instant;
  */
 @Data
 @SuperBuilder
-@TableName(value = "blade_user", autoResultMap = true)
+@TableName(value = "user", autoResultMap = true)
 @AllArgsConstructor
 @NoArgsConstructor
 @EqualsAndHashCode(callSuper = true)
@@ -50,7 +53,7 @@ public class User extends TenantEntity {
 //    @ApiModelProperty(value = "主键")
     @TableId(type = IdType.ASSIGN_UUID)
     @JsonSerialize(using = ToStringSerializer.class)
-    private Long id;
+    private String id;
 
     /**
      * 编号
@@ -95,15 +98,18 @@ public class User extends TenantEntity {
     /**
      * 角色id
      */
-    private String roleId;
+    @TableField(typeHandler = JacksonTypeHandler.class)
+    private List<String> roleId;
     /**
      * 部门id
      */
-    private String deptId;
+    @TableField(typeHandler = JacksonTypeHandler.class)
+    private List<String> deptId;
     /**
      * 部门id
      */
-    private String postId;
+    @TableField(typeHandler = JacksonTypeHandler.class)
+    private List<String> postId;
 
 
 }

@@ -22,6 +22,18 @@ spring:
           predicates:
             - Path=/api/auth/**
 
+        - id: user
+          #          uri: http://localhost:8100
+          uri: lb://user-service # lb 表示 从nacos 中按照名称获取微服务，并遵循负载均衡策略, auth-service 即微服务注册名
+          predicates:
+            - Path=/api/user/**
+
+        - id: system
+          #          uri: http://localhost:8100
+          uri: lb://system-service # lb 表示 从nacos 中按照名称获取微服务，并遵循负载均衡策略, auth-service 即微服务注册名
+          predicates:
+            - Path=/api/system/**
+
         - id: demo
           uri: lb://demo-service
           predicates:

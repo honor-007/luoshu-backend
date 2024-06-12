@@ -20,7 +20,7 @@ import java.util.List;
 public class RoleService {
     private final RoleManager roleManager;
 
-    public List<Role> queryBatchIds(List<Long> ids) {
+    public List<Role> queryBatchIds(List<String> ids) {
         return roleManager.queryBatchIds(ids);
     }
 

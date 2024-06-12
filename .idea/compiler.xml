@@ -6,6 +6,7 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
+        <module name="system-api" />
         <module name="user-api" />
         <module name="common" />
         <module name="demo-api" />
@@ -20,8 +21,9 @@
           <entry name="$MAVEN_REPOSITORY$/org/mapstruct/mapstruct-processor/1.5.5.Final/mapstruct-processor-1.5.5.Final.jar" />
           <entry name="$MAVEN_REPOSITORY$/org/mapstruct/mapstruct/1.5.5.Final/mapstruct-1.5.5.Final.jar" />
         </processorPath>
-        <module name="auth" />
+        <module name="system" />
         <module name="demo" />
+        <module name="auth" />
         <module name="user" />
       </profile>
     </annotationProcessing>
@@ -40,6 +42,8 @@
       <module name="service" options="-parameters" />
       <module name="service-api" options="-parameters" />
       <module name="springcloud-base" options="-parameters" />
+      <module name="system" options="-parameters" />
+      <module name="system-api" options="-parameters" />
       <module name="user" options="-parameters" />
       <module name="user-api" options="-parameters" />
       <module name="user-service" options="-parameters" />

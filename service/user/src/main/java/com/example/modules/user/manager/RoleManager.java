@@ -19,7 +19,7 @@ import java.util.List;
 public class RoleManager {
     private final RoleDAO roleDAO;
 
-    public List<Role> queryBatchIds(List<Long> id) {
+    public List<Role> queryBatchIds(List<String> id) {
         return roleDAO.selectBatchIds(id);
     }
 

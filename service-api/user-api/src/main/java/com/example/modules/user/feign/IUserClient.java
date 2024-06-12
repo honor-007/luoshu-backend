@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 )
 public interface IUserClient {
 
-    String API_PREFIX = "/user";
+    String API_PREFIX = "/secureUser";
 
     /**
      * 获取用户信息
@@ -24,7 +24,7 @@ public interface IUserClient {
      * @return
      */
     @GetMapping(API_PREFIX + "/user-info-by-id")
-    R<UserInfoRep> userInfo(@RequestParam("userId") Long userId);
+    R<UserInfoRep> userInfo(@RequestParam("userId") String userId);
 
     /**
      * 获取用户信息

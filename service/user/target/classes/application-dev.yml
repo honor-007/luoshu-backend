@@ -18,7 +18,7 @@ spring:
       #cluster:
       #  nodes: 127.0.0.1:7001,127.0.0.1:7002,127.0.0.1:7003
       #  commandTimeout: 5000
-      connect-timeout: 10s
+      connect-timeout: 600s
       lettuce:
         pool:
           # 连接池最大连接数

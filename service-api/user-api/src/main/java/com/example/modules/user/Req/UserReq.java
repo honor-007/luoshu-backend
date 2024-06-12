@@ -8,6 +8,7 @@ import lombok.NoArgsConstructor;
 import lombok.experimental.SuperBuilder;
 
 import java.time.Instant;
+import java.util.List;
 
 /**
  * @author honor
@@ -64,13 +65,13 @@ public class UserReq extends TenantEntity {
     /**
      * 角色id
      */
-    private String roleId;
+    private List<Long> roleId;
     /**
      * 部门id
      */
-    private String deptId;
+    private List<Long> deptId;
     /**
      * 部门id
      */
-    private String postId;
+    private List<Long> postId;
 }

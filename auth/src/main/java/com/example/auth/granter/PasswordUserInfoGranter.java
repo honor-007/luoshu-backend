@@ -1,8 +1,8 @@
 package com.example.auth.granter;
 
-import com.example.auth.entity.UserInfo;
-import com.example.auth.entity.UserParameter;
 import com.example.auth.support.AuthConvertMapper;
+import com.example.core.secure.entity.UserInfo;
+import com.example.core.secure.entity.UserParameter;
 import com.example.core.tool.api.R;
 import com.example.modules.user.Rep.UserInfoRep;
 import com.example.modules.user.feign.IUserClient;
@@ -30,8 +30,8 @@ public class PasswordUserInfoGranter implements IUserInfoGranter {
         if (userInfoRepR.isSuccess()) {
             UserInfoRep userInfoRep = userInfoRepR.getData();
             return UserInfo.builder()
-                    .user(AuthConvertMapper.INSTANT.from(userInfoRep.getUser()))
-                    .roles(userInfoRep.getRoles())
+                    .secureUser(AuthConvertMapper.INSTANT.from(userInfoRep.getUser()))
+                    .roleAlias(userInfoRep.getRoleAlias())
                     .build();
         }
         return null;

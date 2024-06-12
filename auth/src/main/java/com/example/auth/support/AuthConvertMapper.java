@@ -1,7 +1,7 @@
 package com.example.auth.support;
 
 
-import com.example.auth.entity.User;
+import com.example.core.secure.entity.SecureUser;
 import com.example.modules.user.Rep.UserInfoRep;
 import org.mapstruct.Builder;
 import org.mapstruct.Mapper;
@@ -14,6 +14,6 @@ import org.mapstruct.factory.Mappers;
 public interface AuthConvertMapper {
     AuthConvertMapper INSTANT = Mappers.getMapper(AuthConvertMapper.class);
 
-    User from(UserInfoRep.UserRep userRep);
+    SecureUser from(UserInfoRep.UserRep userRep);
 
 }

@@ -17,6 +17,7 @@
     <modules>
         <module>demo</module>
         <module>user</module>
+        <module>system</module>
     </modules>
 
     <properties>

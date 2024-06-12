@@ -30,7 +30,7 @@ public class UserInfoRep implements Serializable {
     /**
      * 角色集合
      */
-    private List<String> roles;
+    private List<String> roleAlias;
 
     /**
      * 第三方授权id
@@ -88,14 +88,14 @@ public class UserInfoRep implements Serializable {
         /**
          * 角色id
          */
-        private String roleId;
+        private List<String> roleId;
         /**
          * 部门id
          */
-        private String deptId;
+        private List<String> deptId;
         /**
          * 部门id
          */
-        private String postId;
+        private List<String> postId;
     }
 }

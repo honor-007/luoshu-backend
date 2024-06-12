@@ -1,7 +1,7 @@
 package com.example.modules.user.support;
 
 
-import com.example.core.secure.utils.SecureUtil;
+import com.example.core.secure.entity.SecureUser;
 import com.example.modules.user.Rep.UserInfoRep;
 import com.example.modules.user.Req.UserReq;
 import com.example.modules.user.controller.vo.UserVO;
@@ -24,5 +24,5 @@ public interface UserConvertMapper {
 
     User from(UserReq userReq);
 
-    User from(SecureUtil.User user);
+    User from(SecureUser secureUser);
 }
