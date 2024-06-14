@@ -16,8 +16,10 @@
 package com.example.modules.dept.dao.criteria;
 
 import com.example.modules.dept.dao.entity.Dept;
+import lombok.Builder;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import lombok.experimental.SuperBuilder;
 
 /**
  * 视图实体类
@@ -25,14 +27,10 @@ import lombok.EqualsAndHashCode;
  * @author Chill
  */
 @Data
+@SuperBuilder
 @EqualsAndHashCode(callSuper = true)
 public class DeptCriteria extends Dept {
     private static final long serialVersionUID = 1L;
 
-    /**
-     * 角色名
-     */
-    private String roleName;
-
-
+    private String ll;
 }

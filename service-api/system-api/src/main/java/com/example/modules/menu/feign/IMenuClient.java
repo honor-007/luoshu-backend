@@ -7,11 +7,12 @@ import org.springframework.cloud.openfeign.FeignClient;
  */
 @FeignClient(
         value = "system-service",
-        fallback = IMenuClientFallback.class
+        fallback = IMenuClientFallback.class,
+        contextId="menu"
 )
 public interface IMenuClient {
 
-    String API_PREFIX = "/user";
+    String API_PREFIX = "/menu";
 
 
 }

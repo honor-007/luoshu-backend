@@ -12,8 +12,12 @@ import com.example.core.tool.api.R;
 import com.example.core.tool.exception.MSException;
 import com.example.core.tool.utils.RedisUtils;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import io.swagger.v3.oas.annotations.OpenAPIDefinition;
+import io.swagger.v3.oas.annotations.info.Info;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.annotation.Resource;
 import lombok.AllArgsConstructor;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -26,13 +30,16 @@ import java.util.concurrent.TimeUnit;
  * @author Chill
  */
 @RestController
-@AllArgsConstructor
 @RequestMapping("/api/auth/")
-//@Api(value = "用户授权认证", tags = "授权接口")
+@OpenAPIDefinition(info = @Info(title = "用户授权认证", description = "授权接口", version = "1.0.0"))
+@Tag(name = "auth")
 public class AuthController {
 
     @Resource
     RedisUtils redisUtils;
+
+    @Value("${sa-token.timeout}")
+    private long tokenTimeOut;
 
     @PostMapping("login")
     public R<AuthInfo> doLogin(@RequestBody(required = false) UserParameter loginInfo) {
@@ -53,7 +60,7 @@ public class AuthController {
         SecureUser secureUser = userInfo.getSecureUser();
 
         //将用户信息存入redis
-        redisUtils.<SecureUser>setCacheObject(secureUser.getId(), secureUser, 600L, TimeUnit.SECONDS);
+        redisUtils.<SecureUser>setCacheObject(secureUser.getId(), secureUser, tokenTimeOut, TimeUnit.SECONDS);
         try {
             // 创建ObjectMapper对象
             ObjectMapper objectMapper = new ObjectMapper();

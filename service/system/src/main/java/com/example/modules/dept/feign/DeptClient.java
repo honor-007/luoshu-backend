@@ -15,10 +15,11 @@
  */
 package com.example.modules.dept.feign;
 
-import com.example.modules.menu.feign.IMenuClient;
-import com.example.modules.menu.service.impl.MenuService;
+import com.example.modules.dept.service.impl.DeptService;
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.RestController;
+
+import java.util.List;
 
 /**
  * 用户服务Feign实现类
@@ -27,8 +28,12 @@ import org.springframework.web.bind.annotation.RestController;
  */
 @RestController
 @AllArgsConstructor
-public class MenuClient implements IMenuClient {
+public class DeptClient implements IDeptClient {
 
-    private final MenuService service;
+    private final DeptService service;
 
+    @Override
+    public List<String> getDeptNames(List<String> deptIds) {
+        return service.getDeptNames(deptIds);
+    }
 }

@@ -21,6 +21,8 @@ import com.fasterxml.jackson.databind.ser.std.ToStringSerializer;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
+import java.util.List;
+
 /**
  * 视图实体类
  *
@@ -39,12 +41,12 @@ public class UserVO extends User {
     /**
      * 部门名
      */
-    private String deptName;
+    private List<String> deptNames;
 
     /**
      * 岗位名
      */
-    private String postName;
+    private List<String> postNames;
 
     /**
      * 性别

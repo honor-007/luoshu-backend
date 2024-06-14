@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.example.modules.menu.dao.mapper.MenuMapper">
+<mapper namespace="com.example.modules.dept.dao.mapper.DeptMapper">
 
     <!-- 通用查询映射结果 -->
-    <resultMap id="menuResultMap" type="com.example.modules.menu.dao.entity.Menu">
+    <resultMap id="deptResultMap" type="com.example.modules.dept.dao.entity.Dept">
         <id column="id" property="id"/>
         <result column="code" property="code"/>
         <result column="parent_id" property="parentId"/>
@@ -12,6 +12,7 @@
         <result column="path" property="path"/>
         <result column="source" property="source"/>
         <result column="sort" property="sort"/>
+        <result column="sort" property="sort"/>
         <result column="type" property="type"/>
         <result column="action" property="action"/>
         <result column="is_open" property="isOpen"/>
@@ -19,7 +20,7 @@
         <result column="is_deleted" property="isDeleted"/>
     </resultMap>
 
-    <resultMap id="menuVOResultMap" type="com.example.modules.menu.controller.vo.MenuVO">
+    <resultMap id="deptVOResultMap" type="com.example.modules.dept.controller.vo.DeptVO">
         <id column="id" property="id"/>
         <result column="code" property="code"/>
         <result column="parent_id" property="parentId"/>
@@ -44,17 +45,10 @@
         <result column="key" property="key"/>
     </resultMap>
 
-    <select id="allMenu" resultMap="menuResultMap">
-        select *
-        from menu
-        where is_deleted = 0
-          and type = #{type}
-    </select>
-
-    <select id="roleMenu" resultMap="menuResultMap">
-        select * from menu where is_deleted = 0 and id IN ( SELECT menu_id FROM blade_role_menu WHERE role_id IN
-        <foreach collection="list" index="index" item="item" open="(" separator="," close=")">
-            #{item}
-        </foreach> )
+    <select id="tree" resultMap="treeNodeResultMap">
+        select id, parent_id, dept_name as title, id as 'value', id as 'key' from dept where is_deleted = 0
+        <if test="tenantId!=null">
+            and tenant_id = #{tenantId}
+        </if>
     </select>
 </mapper>

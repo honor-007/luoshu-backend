@@ -1,5 +1,6 @@
 package com.example.modules.user.controller.impl;
 
+import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.example.core.secure.entity.AuthInfo;
 import com.example.core.secure.entity.SecureUser;
 import com.example.core.secure.utils.SecureUtil;
@@ -7,9 +8,11 @@ import com.example.core.tool.api.R;
 import com.example.core.tool.utils.Func;
 import com.example.core.tool.utils.RedisUtils;
 import com.example.modules.user.controller.vo.UserVO;
+import com.example.modules.user.dao.criteria.UserCriteria;
 import com.example.modules.user.dao.entity.User;
 import com.example.modules.user.service.impl.UserService;
 import com.example.modules.user.support.UserConvertMapper;
+import com.example.modules.user.support.UserWrapper;
 import io.swagger.v3.oas.annotations.OpenAPIDefinition;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.info.Info;
@@ -31,6 +34,16 @@ import org.springframework.web.bind.annotation.*;
 public class UserController {
     private final UserService userService;
     private final RedisUtils redisUtils;
+
+    /**
+     * 用户列表
+     */
+    @Operation(summary = "user分页list")
+    @GetMapping("/page")
+    public R<IPage<UserVO>> list(UserCriteria criteria) {
+        IPage<User> pages = userService.page(criteria);
+        return R.data(UserWrapper.build().pageVO(pages));
+    }
 
     /**
      * 查询单条
@@ -60,18 +73,6 @@ public class UserController {
 //        UserInfo userInfo = userService.signByPassword("rongyu", "123456", "000000");
 //        return R.success("rongyu");
 //    }
-
-//    /**
-//     * 用户列表
-//     */
-//    @GetMapping("/list")
-//    @ApiOperationSupport(order = 3)
-//    public R<IPage<UserVO>> list(@RequestParam Map<String, Object> user) {
-//        QueryWrapper<User> queryWrapper = Condition.getQueryWrapper(user, User.class);
-//        IPage<User> pages = userService.page(Condition.getPage(query), (!bladeUser.getTenantId().equals(BladeConstant.ADMIN_TENANT_ID)) ? queryWrapper.lambda().eq(User::getTenantId, bladeUser.getTenantId()) : queryWrapper);
-//        return R.data(UserWrapper.build().pageVO(pages));
-//    }
-
 
     /**
      * 新增或修改

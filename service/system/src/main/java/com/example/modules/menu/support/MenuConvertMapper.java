@@ -1,6 +1,7 @@
 package com.example.modules.menu.support;
 
 
+import com.example.modules.dept.controller.vo.DeptVO;
 import com.example.modules.menu.controller.vo.MenuVO;
 import com.example.modules.menu.dao.criteria.MenuCriteria;
 import com.example.modules.menu.dao.entity.Menu;

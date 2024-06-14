@@ -1,6 +1,8 @@
 package com.example.modules.user.manager;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.example.modules.user.dao.criteria.UserCriteria;
 import com.example.modules.user.dao.entity.User;
 import com.example.modules.user.dao.impl.UserDAO;
 import lombok.RequiredArgsConstructor;
@@ -8,6 +10,7 @@ import org.springframework.cache.annotation.CacheConfig;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * @author honor
@@ -42,6 +45,13 @@ public class UserManager {
 
     public boolean deleteBatchByIds(List<Long> ids) {
         return userDAO.removeBatchByIds(ids);
+    }
 
+    public IPage<User> selectPage(UserCriteria criteria) {
+        IPage<User> userIPage = userDAO.selectPage(criteria);
+        List<User> collect = userIPage.getRecords().stream().filter(v -> v.getDeptId().contains(criteria.getDeptId())).toList();
+        userIPage.setRecords(collect);
+        userIPage.setTotal(collect.size());
+        return userIPage;
     }
 }

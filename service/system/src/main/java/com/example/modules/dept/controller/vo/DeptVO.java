@@ -16,12 +16,14 @@
 package com.example.modules.dept.controller.vo;
 
 import com.example.core.tool.node.INode;
+import com.example.modules.dept.dao.entity.Dept;
 import com.example.modules.menu.dao.entity.Menu;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.fasterxml.jackson.databind.ser.std.ToStringSerializer;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import lombok.experimental.SuperBuilder;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -32,61 +34,9 @@ import java.util.List;
  * @author Chill
  */
 @Data
+@SuperBuilder
 @EqualsAndHashCode(callSuper = true)
-public class MenuVO extends Menu implements INode {
+public class DeptVO extends Dept  {
     private static final long serialVersionUID = 1L;
-
-    /**
-     * 主键ID
-     */
-    @JsonSerialize(using = ToStringSerializer.class)
-    private Long id;
-
-    /**
-     * 父节点ID
-     */
-    @JsonSerialize(using = ToStringSerializer.class)
-    private Long parentId;
-
-    /**
-     * 子孙节点
-     */
-    @JsonInclude(JsonInclude.Include.NON_EMPTY)
-    private List<INode> children;
-
-    /**
-     * 是否有子孙节点
-     */
-    @JsonInclude(JsonInclude.Include.NON_EMPTY)
-    private Boolean hasChildren;
-
-    @Override
-    public List<INode> getChildren() {
-        if (this.children == null) {
-            this.children = new ArrayList<>();
-        }
-        return this.children;
-    }
-
-    /**
-     * 上级菜单
-     */
-    private String parentName;
-
-    /**
-     * 菜单类型
-     */
-    private String categoryName;
-
-    /**
-     * 按钮功能
-     */
-    private String actionName;
-
-    /**
-     * 是否新窗口打开
-     */
-    private String isOpenName;
-
 
 }

@@ -1,9 +1,13 @@
 package com.example.modules.user.service.impl;
 
+import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
+import com.example.core.mybatis.support.BaseEntityWrapper;
 import com.example.core.secure.entity.AuthInfo;
 import com.example.core.tool.exception.MSException;
 import com.example.core.tool.utils.Func;
+import com.example.modules.user.controller.vo.UserVO;
+import com.example.modules.user.dao.criteria.UserCriteria;
 import com.example.modules.user.dao.entity.Role;
 import com.example.modules.user.manager.RoleManager;
 import com.example.modules.user.manager.UserManager;
@@ -38,7 +42,7 @@ public class UserService {
         return userManager.getOne(user);
     }
 
-    public AuthInfo getCurrentUser(String id){
+    public AuthInfo getCurrentUser(String id) {
         User user = userManager.selectById(id);
         List<String> roleIds = user.getRoleId();
         List<Role> roles = roleManager.queryBatchIds(roleIds);
@@ -53,7 +57,7 @@ public class UserService {
         authInfo.setTokenType("satoken");
         return authInfo;
     }
-    
+
     public UserInfo userInfo(String userId) {
         UserInfo userInfo = new UserInfo();
         User user = userManager.selectById(userId);
@@ -115,5 +119,10 @@ public class UserService {
 
     public boolean deleteBatchByIds(List<Long> ids) {
         return userManager.deleteBatchByIds(ids);
+    }
+
+    public IPage<User> page(UserCriteria criteria) {
+
+        return userManager.selectPage(criteria);
     }
 }

@@ -3,6 +3,7 @@ package com.example.modules.menu.controller.impl;
 import com.example.core.secure.entity.SecureUser;
 import com.example.core.secure.utils.SecureUtil;
 import com.example.core.tool.api.R;
+import com.example.modules.dept.controller.vo.DeptVO;
 import com.example.modules.menu.controller.vo.MenuVO;
 import com.example.modules.menu.dao.criteria.MenuCriteria;
 import com.example.modules.menu.service.impl.MenuService;

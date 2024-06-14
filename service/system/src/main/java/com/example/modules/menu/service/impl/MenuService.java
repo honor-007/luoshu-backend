@@ -1,10 +1,11 @@
 package com.example.modules.menu.service.impl;
 
 import com.example.core.tool.node.ForestNodeMerger;
-import com.example.modules.menu.dao.enums.MenuTypeEnum;
-import com.example.modules.menu.support.MenuConvertMapper;
 import com.example.modules.menu.controller.vo.MenuVO;
 import com.example.modules.menu.dao.criteria.MenuCriteria;
+import com.example.modules.menu.dao.enums.MenuTypeEnum;
+import com.example.modules.menu.support.MenuConvertMapper;
+import com.example.modules.dept.controller.vo.DeptVO;
 import com.example.modules.menu.dao.entity.Menu;
 import com.example.modules.menu.manager.MenuManager;
 import lombok.RequiredArgsConstructor;
