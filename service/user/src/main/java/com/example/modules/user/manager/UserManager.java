@@ -8,6 +8,7 @@ import com.example.modules.user.dao.impl.UserDAO;
 import lombok.RequiredArgsConstructor;
 import org.springframework.cache.annotation.CacheConfig;
 import org.springframework.stereotype.Service;
+import org.springframework.util.ObjectUtils;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -49,9 +50,11 @@ public class UserManager {
 
     public IPage<User> selectPage(UserCriteria criteria) {
         IPage<User> userIPage = userDAO.selectPage(criteria);
-        List<User> collect = userIPage.getRecords().stream().filter(v -> v.getDeptId().contains(criteria.getDeptId())).toList();
-        userIPage.setRecords(collect);
-        userIPage.setTotal(collect.size());
+        if (!ObjectUtils.isEmpty(criteria.getDeptId())) {
+            List<User> collect = userIPage.getRecords().stream().filter(v -> v.getDeptId().contains(criteria.getDeptId())).toList();
+            userIPage.setRecords(collect);
+            userIPage.setTotal(collect.size());
+        }
         return userIPage;
     }
 }

@@ -15,8 +15,10 @@
  */
 package com.example.modules.dept.feign;
 
+import com.example.core.tool.api.R;
 import com.example.modules.dept.service.impl.DeptService;
 import lombok.AllArgsConstructor;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
@@ -33,7 +35,8 @@ public class DeptClient implements IDeptClient {
     private final DeptService service;
 
     @Override
-    public List<String> getDeptNames(List<String> deptIds) {
-        return service.getDeptNames(deptIds);
+    @GetMapping(API_PREFIX + "/dept-names-by-id")
+    public R<List<String>> getDeptNames(List<String> deptIds) {
+        return R.data(service.getDeptNames(deptIds));
     }
 }

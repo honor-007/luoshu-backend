@@ -122,7 +122,6 @@ public class UserService {
     }
 
     public IPage<User> page(UserCriteria criteria) {
-
         return userManager.selectPage(criteria);
     }
 }

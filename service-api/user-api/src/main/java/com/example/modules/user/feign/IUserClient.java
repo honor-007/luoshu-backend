@@ -11,7 +11,8 @@ import org.springframework.web.bind.annotation.RequestParam;
  */
 @FeignClient(
         value = "user-service",
-        fallback = IUserClientFallback.class
+        fallback = IUserClientFallback.class,
+        contextId="user"
 )
 public interface IUserClient {
 

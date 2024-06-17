@@ -34,8 +34,8 @@ public class UserWrapper extends BaseEntityWrapper<User, UserVO> {
     @Override
     public UserVO entityVO(User entity) {
         UserVO userVO = INSTANT.from(entity);
-        List<String> deptNames = deptClient.getDeptNames(entity.getDeptId());
+        List<String> deptNames = deptClient.getDeptNames(entity.getDeptId()).getData();
         userVO.setDeptNames(deptNames);
-        return null;
+        return userVO;
     }
 }
