@@ -16,7 +16,6 @@ import io.swagger.v3.oas.annotations.OpenAPIDefinition;
 import io.swagger.v3.oas.annotations.info.Info;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.annotation.Resource;
-import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -72,6 +71,12 @@ public class AuthController {
         }
 
         return R.data(TokenGranter.createAuthInfo(userInfo));
+    }
+
+    @PostMapping("login-out")
+    public R<String> loginOut(){
+        StpUtil.logout();
+        return R.success("退出成功");
     }
 
     // 查询登录状态，浏览器访问： http://localhost:8081/user/isLogin
