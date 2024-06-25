@@ -9,7 +9,7 @@
     </parent>
 
     <groupId>com.example</groupId>
-    <artifactId>springcloud-base</artifactId>
+    <artifactId>luoshu-backend</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <name>springcloud-base</name>
     <description>springcloud-base</description>
